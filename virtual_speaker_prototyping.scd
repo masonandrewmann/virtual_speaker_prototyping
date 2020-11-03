@@ -56,13 +56,13 @@ SynthDef.new(\body, {
 	sp2el = 45,
 	sp3el = 0,
 	sp4el = 45,
-	sp5el = -45;
-	// sp0encD = ~sp0enc;
-/*	sp1enc = FoaEncoderMatrix.newDirections([[0, 0]]),
-	sp2enc = FoaEncoderMatrix.newDirections([[0, 0]]),
-	sp3enc = FoaEncoderMatrix.newDirections([[0, 0]]),
-	sp4enc = FoaEncoderMatrix.newDirections([[0, 0]]),
-	sp5enc = FoaEncoderMatrix.newDirections([[0, 0]]);*/
+	sp5el = -45,
+	sp0d = 0,
+	sp1d = 0,
+	sp2d = 0,
+	sp3d = 0,
+	sp4d = 0,
+	sp5d = 0;
 	var out, sig, sigB, sig_dec, sp0, sp1, sp2, sp3, sp4, sp5;
 
 	//generate and encode test signal
@@ -79,11 +79,6 @@ SynthDef.new(\body, {
 	sp3 = FoaEncode.ar(sig, ~sp3enc);
 	sp4 = FoaEncode.ar(sig, ~sp4enc);
 	sp5 = FoaEncode.ar(sig, ~sp5enc);
-	// sp1 = FoaEncode.ar(sig, FoaEncoderMatrix.newDirections([[sp1az, sp1el]].degrad));
-	// sp2 = FoaEncode.ar(sig, FoaEncoderMatrix.newDirections([[sp2az, sp2el]].degrad));
-	// sp3 = FoaEncode.ar(sig, FoaEncoderMatrix.newDirections([[sp3az, sp3el]].degrad));
-	// sp4 = FoaEncode.ar(sig, FoaEncoderMatrix.newDirections([[sp4az, sp4el]].degrad));
-	// sp5 = FoaEncode.ar(sig, FoaEncoderMatrix.newDirections([[sp5az, sp5el]].degrad));
 
 	sp0 = FoaTransform.ar(sp0, 'push', pi/2, sp0az, sp0el);
 	sp1 = FoaTransform.ar(sp1, 'push', pi/2, sp1az, sp1el);
@@ -94,18 +89,12 @@ SynthDef.new(\body, {
 
 	// sp0 = FoaTransform.ar(sp0, 'rtt',
 	//decode each loudspeaker to stereo then sum
-	sp0 = FoaDecode.ar(sp0, ~decoder);
-	sp1 = FoaDecode.ar(sp1, ~decoder);
-	sp2 = FoaDecode.ar(sp2, ~decoder);
-	sp3 = FoaDecode.ar(sp3, ~decoder);
-	sp4 = FoaDecode.ar(sp4, ~decoder);
-	sp5 = FoaDecode.ar(sp5, ~decoder);
-
-	// sp1 = FoaDecode.ar(sp1, ~decoder);
-	// sp2 = FoaDecode.ar(sp2, ~decoder);
-	// sp3 = FoaDecode.ar(sp3, ~decoder);
-	// sp4 = FoaDecode.ar(sp4, ~decoder);
-	// sp5 = FoaDecode.ar(sp5, ~decoder);
+	sp0 = FoaDecode.ar(sp0, ~decoder) * sp0d;
+	sp1 = FoaDecode.ar(sp1, ~decoder) * sp1d;
+	sp2 = FoaDecode.ar(sp2, ~decoder) * sp2d;
+	sp3 = FoaDecode.ar(sp3, ~decoder) * sp3d;
+	sp4 = FoaDecode.ar(sp4, ~decoder) * sp4d;
+	sp5 = FoaDecode.ar(sp5, ~decoder) * sp5d;
 
 	//sum them
 	out = sp0 + sp1 + sp2 + sp3 + sp4 + sp5;
@@ -147,7 +136,7 @@ x = Synth(\body);
 		postln(" ");*/
 
 		// encoder = FoaEncoderMatrix.newDirections([msg[2], msg[3]].degrad);
-		x.set(\sp0az, msg[2].degrad, \sp0el, msg[3].degrad);
+		x.set(\sp0d, msg[1], \sp0az, msg[2].degrad, \sp0el, msg[3].degrad);
 		}, '/speaker0');
 	);
 
@@ -166,7 +155,7 @@ x = Synth(\body);
 		postln(" ");*/
 
 		// encoder = FoaEncoderMatrix.newDirections([msg[2], msg[3]].degrad);
-		x.set(\sp1az, msg[2].degrad, \sp1el, msg[3].degrad);
+		x.set(\sp1d, msg[1], \sp1az, msg[2].degrad, \sp1el, msg[3].degrad);
 		}, '/speaker1');
 	);
 
@@ -185,7 +174,7 @@ x = Synth(\body);
 		postln(" ");*/
 
 		// encoder = FoaEncoderMatrix.newDirections([msg[2], msg[3]].degrad);
-		x.set(\sp2az, msg[2].degrad, \sp2el, msg[3].degrad);
+		x.set(\sp2d, msg[1], \sp2az, msg[2].degrad, \sp2el, msg[3].degrad);
 		}, '/speaker2');
 	);
 
@@ -204,7 +193,7 @@ x = Synth(\body);
 		postln(" ");*/
 
 		// encoder = FoaEncoderMatrix.newDirections([msg[2], msg[3]].degrad);
-		x.set(\sp3az, msg[2].degrad, \sp3el, msg[3].degrad);
+		x.set(\sp3d, msg[1], \sp3az, msg[2].degrad, \sp3el, msg[3].degrad);
 		}, '/speaker3');
 	);
 
@@ -223,7 +212,7 @@ x = Synth(\body);
 		postln(" ");*/
 
 		// encoder = FoaEncoderMatrix.newDirections([msg[2], msg[3]].degrad);
-		x.set(\sp4az, msg[2].degrad, \sp4el, msg[3].degrad);
+		x.set(\sp4d, msg[1], \sp4az, msg[2].degrad, \sp4el, msg[3].degrad);
 		}, '/speaker4');
 	);
 
@@ -242,7 +231,7 @@ x = Synth(\body);
 		postln(" ");*/
 
 		// encoder = FoaEncoderMatrix.newDirections([msg[2], msg[3]].degrad);
-		x.set(\sp5az, msg[2].degrad, \sp5el, msg[3].degrad);
+		x.set(\sp5d, msg[1], \sp5az, msg[2].degrad, \sp5el, msg[3].degrad);
 		}, '/speaker5');
 	);
 )

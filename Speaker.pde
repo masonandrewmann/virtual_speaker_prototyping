@@ -73,6 +73,7 @@ class Speaker{
     //elevation = degrees(atan(sqrt(pow(x, 2) + pow(y, 2))/z));
     
      dist = map(dist, 0, width/4*sqrt(2), 0, 1);
+     dist = 1 - dist;
     
     print("x: ");
     print(x);
