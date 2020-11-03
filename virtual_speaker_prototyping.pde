@@ -20,6 +20,9 @@ int moving = -1;
 int movingZ = -1;
 int speaker_sel = 0;
 
+//user input
+Mover user;
+
 void setup(){
   size(1600, 800);
   
@@ -37,20 +40,29 @@ void setup(){
   //set up OSC
    oscP5 = new OscP5(this, 7000);
    oscInit();
+   
+  //create user
+  user = new Mover(1, width/4, height/2);
 }
   
 void draw(){
   background(54);
+  
+  //draw background
   draw_axes();
+  
+  //draw speakers
     for (Speaker s : speakers){
     s.update();
     s.show();
     s.showVert();
   }
   
+  //draw user
+  user.update();
+  user.display();
   //test osc on first speaker
   sendAll();
-  
   
     if (speaker_sel != -1){
     Speaker showit = speakers.get(speaker_sel);

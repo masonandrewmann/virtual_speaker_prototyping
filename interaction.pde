@@ -19,6 +19,7 @@ void mouseReleased(){
 }
 
 void keyPressed(){
+  //adding and deleting speakers
   if (key == ' '){
     speakers.add(new Speaker(width/2, height/2, 0));
   } else if (key == BACKSPACE){
@@ -31,6 +32,20 @@ void keyPressed(){
        it.remove();
       }
   }
+  }
+  
+  //moving user
+  if (key == CODED){
+    if (keyCode == LEFT){
+      user.aVelocity = -0.03;
+    };
+    if (keyCode == RIGHT){
+      user.aVelocity = 0.03;
+    };
+    if (keyCode == UP){
+      user.velocity.x = cos(user.angle + PI / 2);
+      user.velocity.y = sin(user.angle + PI / 2);
+    }
   }
 }
 
@@ -56,4 +71,19 @@ void numSpeakers(float theValue){
   //} else if (diff < 0){
     
   //}
+}
+
+void keyReleased(){
+  if (key == CODED){
+    if (keyCode == LEFT){
+      user.aVelocity = 0;
+    };
+    if (keyCode == RIGHT){
+      user.aVelocity = 0;
+    };
+    if (keyCode == UP){
+      user.velocity.x = 0;
+      user.velocity.y = 0;
+    }
+  }
 }
