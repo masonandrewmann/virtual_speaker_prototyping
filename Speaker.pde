@@ -75,6 +75,9 @@ class Speaker{
     //elevation = atan2(pos.y, pos.x);
     
     azimuth = degrees(atan(y / x));
+    print("PRE:azimuth: ");
+    println(azimuth);
+    azimuth = azimuth - user.angleDeg;
     //azimuth = acos(pos.z / dist);
     
     if (x <= 0 && y <= 0) azimuth += 180;
@@ -82,22 +85,24 @@ class Speaker{
     else if ( x >= 0 && y <= 0) azimuth = (90 - azimuth * -1) + 270;
     //elevation = degrees(atan(sqrt(pow(x, 2) + pow(y, 2))/z));
     
-     //dist = map(dist, 0, width/4*sqrt(2), 0, 1);
-     //dist = 1 - dist;
+     dist = map(dist, 0, width/4*sqrt(2), 0, 1);
+     dist = 1 - dist;
     
-    print("x: ");
-    print(x);
-    print(", y: ");
-    print(y);
-    print(", z: ");
-    println(z);
+    //print("x: ");
+    //print(x);
+    //print(", y: ");
+    //print(y);
+    //print(", z: ");
+    //println(z);
     print("dist: ");
     println(dist);
-    print("azimuth: ");
-    println(azimuth);
-    print("elevation: ");
-    println(elevation);
-    println(refLocReal);
+    //print("azimuth: ");
+    //println(azimuth);
+    //print("elevation: ");
+    //println(elevation);
+    //println(refLocReal);
+    //println(user.angle);
+    //println(user.angleDeg);
 
   }
 }

@@ -10,6 +10,8 @@ class Mover{
   float aVelocity = 0;
   float aAcceleration= 0;
   
+  float angleDeg = 0;
+  
   Mover(float m, float x, float y){
     location = new PVector(x, y);
     velocity = new PVector(0,0);
@@ -27,8 +29,9 @@ class Mover{
 
     aVelocity += aAcceleration;
     aVelocity = constrain(aVelocity, -0.5, 0.5);
-    angle += aVelocity%(2 * PI);
-    
+    angle += aVelocity;
+    angle = angle%(2 * PI);
+    angleDeg = degrees(angle * -1);
     acceleration.mult(0);
   }
   
@@ -42,7 +45,7 @@ class Mover{
     fill(100, 200);
     pushMatrix();
     translate(location.x, location.y);
-    rotate(angle);
+    rotate(angle - PI/2);
     triangle(0, 20, 20 * cos(radians(315)), 20 * sin(radians(315)), -20 * cos(radians(315)), 20 * sin(radians(315)));
     popMatrix();
   }
