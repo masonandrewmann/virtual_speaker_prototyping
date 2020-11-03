@@ -31,6 +31,9 @@ void setup(){
   mono = createFont("Courier", 64);
   textFont(mono);
   
+    //create user
+  user = new Mover(1, width/4, height/2);
+  
   //create initial speakers
   speakers = new ArrayList<Speaker>();
   for (int i = 0; i < 1; i ++){
@@ -40,9 +43,7 @@ void setup(){
   //set up OSC
    oscP5 = new OscP5(this, 7000);
    oscInit();
-   
-  //create user
-  user = new Mover(1, width/4, height/2);
+  
 }
   
 void draw(){

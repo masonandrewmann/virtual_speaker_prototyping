@@ -6,10 +6,13 @@ class Speaker{
   float elevation;
   float dist;
   
+  PVector referenceLoc;
+  
   Speaker(float x, float y, float z){
     pos = new PVector(x, y, z);
     r = 20;
     vel = new PVector(0, 0, 0);
+    referenceLoc = user.location;
   }
   
   void show(){
@@ -60,20 +63,26 @@ class Speaker{
   }
   
   void calculateVectors(){
-    float x = pos.x - width/4;
-    float y = -1 * (pos.y - width/4);
+    float x = (pos.x - width/4) - (referenceLoc.x - width/4);
+    float y = (-1 * (pos.y - width/4)) - (-1 * (referenceLoc.y - width/4));
     float z = pos.z;
-    PVector origin = new PVector(0, 0, 0);
-    dist = origin.dist(new PVector(x, y, z));
-    elevation = 90 - degrees(acos(z / dist));
-    azimuth = degrees(atan(y / x));
-    if (x <= 0 && y <= 0) azimuth += 180;
-    else if ( x <= 0 && y >=0) azimuth = (90 - azimuth * -1) + 90;
-    else if ( x >= 0 && y <= 0) azimuth = (90 - azimuth * -1) + 270;
+    //PVector origin = new PVector(0, 0, 0);
+    dist = referenceLoc.dist(new PVector(x, y, z));
+    //dist = sqrt(sq(pos.x) + sq(pos.y) + sq(pos.z));
+    
+    //elevation = 90 - degrees(acos(z / dist));
+    elevation = atan2(pos.y, pos.x);
+    
+    //azimuth = degrees(atan(y / x));
+    azimuth = acos(pos.z / dist);
+    
+    //if (x <= 0 && y <= 0) azimuth += 180;
+    //else if ( x <= 0 && y >=0) azimuth = (90 - azimuth * -1) + 90;
+    //else if ( x >= 0 && y <= 0) azimuth = (90 - azimuth * -1) + 270;
     //elevation = degrees(atan(sqrt(pow(x, 2) + pow(y, 2))/z));
     
-     dist = map(dist, 0, width/4*sqrt(2), 0, 1);
-     dist = 1 - dist;
+     //dist = map(dist, 0, width/4*sqrt(2), 0, 1);
+     //dist = 1 - dist;
     
     print("x: ");
     print(x);
