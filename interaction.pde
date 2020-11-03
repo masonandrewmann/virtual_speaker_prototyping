@@ -43,8 +43,8 @@ void keyPressed(){
       user.aVelocity = 0.03;
     };
     if (keyCode == UP){
-      user.velocity.x = cos(user.angle + PI / 2);
-      user.velocity.y = sin(user.angle + PI / 2);
+      user.velocity.x = cos(user.angle);
+      user.velocity.y = sin(user.angle);
     }
   }
 }
